@@ -27,7 +27,9 @@ Fields
 You can use ``FileProcessorField`` for easier
 access to retrieve or process files.
 
-For example:: python
+For example
+
+.. code:: python
 
     from processorfield.fields import FileProcessorField
     from PIL import Image
@@ -46,11 +48,15 @@ For example:: python
         user = models.OneToOneField('auth.User')
         photo = FileProcessorField(upload_to='photos', processors={'thumbnail':thumbnail}, blank=True)
 
-Accessing the field's predefined alias in a template:: jinja
+Accessing the field's predefined alias in a template
+
+.. code:: html
 
     <img src="{{ profile.photo.thumbnail.url }}" alt="" />
 
-Accessing the field's predefined alias in Python code:: python
+Accessing the field's predefined alias in Python code
+
+.. code:: python
 
     thumb_url = profile.photo['thumbnail'].url
 
