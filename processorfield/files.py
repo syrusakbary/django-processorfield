@@ -34,10 +34,13 @@ class InnnerProccessorFieldFile(FieldFile):
         return self.alias
 
     def save(self, name, content):
-        if isinstance(content, file):
-            content = File(file)
+        processed = self.processor(content)
+        if isinstance(processed, File):
+            content = processed
+        elif isinstance(processed, file):
+            content = File(processed)
         else:
-            content = ContentFile(self.processor(content))
+            content = ContentFile(processed)
         name = self.field.generate_filename(self.instance, self.filename(name), self.directory())
         self.name = self.storage.save(name, content)
 
