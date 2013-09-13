@@ -1,6 +1,6 @@
 import os
 from django.db.models.fields.files import FieldFile
-from django.core.files.base import ContentFile
+from django.core.files.base import File, ContentFile
 
 def change_file_extension(filename, ext):
     return '%s%s%s'%(os.path.splitext(filename)[0],os.extsep,ext)
@@ -34,8 +34,10 @@ class InnnerProccessorFieldFile(FieldFile):
         return self.alias
 
     def save(self, name, content):
-        content = ContentFile(self.processor(content))
-
+        if isinstance(content, file):
+            content = File(file)
+        else:
+            content = ContentFile(self.processor(content))
         name = self.field.generate_filename(self.instance, self.filename(name), self.directory())
         self.name = self.storage.save(name, content)
 
