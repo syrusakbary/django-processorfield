@@ -39,6 +39,6 @@ class FileProcessorField(models.FileField):
 
 try:
     from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^django_processorfield\.fields\.FileProcessorField"])
+    add_introspection_rules([], ["^processorfield\.fields\.FileProcessorField"])
 except ImportError:
     pass
